@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button defaultHref="/"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Clima en RD</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="weather-content">
+  <ion-card class="card weather-card">
+    <ion-card-header>
+      <h2>{{ location }}</h2>
+      <p>{{ currentDate }}</p>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-row>
+        <ion-col size="4">
+          <div class="current-temperature">
+            <h1>{{ weatherData?.days[0].temp }}</h1>
+            <p>Temperatura</p>
+          </div>
+        </ion-col>
+        <ion-col size="4">
+          <div class="current-icon">
+            <img
+              [src]="'assets/img/' + weatherData?.days[0].conditions.split(' ').join('_').toLowerCase() + '.jpg'"
+              [alt]="weatherData?.days[0].conditions"
+            />
+            <p>{{ weatherData?.days[0].conditions }}</p>
+          </div>
+        </ion-col>
+        <ion-col size="4">
+          <div class="current-humidity">
+            <h1>{{ weatherData?.days[0].humidity }}</h1>
+            <p>Humedad</p>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="forecast-row">
+        <ion-col size="4" *ngFor="let day of weatherData?.days; let i = index">
+          <div class="forecast-item">
+            <h4>{{ day.datetime.split('-')[2] }}</h4>
+            <img
+              [src]="'assets/img/' + day.conditions.split(' ').join('_').toLowerCase() + '.jpg'"
+              [alt]="day.conditions"
+            />
+            <p>{{ day.temp }}°C</p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
